@@ -10,14 +10,13 @@ def save_article(sp, name):
         article_body = sp.find('div', class_='c-article-body').text.strip().encode()
         f = open(name, 'wb')
         f.write(article_body)
-        print('done')
+        print('Stored in the file:', name)
         f.close()
     else:
-        print('None object returned')
+        print('Access denied/ The website blocks from reading full article')
 
-
-n = int(input())
-type_article = input()
+print("DISCLAIMER: Some articles can be unscrappable due to site's settings on the article - Mostly research papers. If you are able to view the full article I can scrap it then")
+n = int(input("Enter the number of pagesto be scraped: "))
 list_of_url = []
 base_url = 'https://www.nature.com/nature/articles'
 titles = []
@@ -26,7 +25,7 @@ for i in range(n):
     os.mkdir('Page_' + str(i + 1))
 
 for i in range(n):
-    page_url = f'https://www.nature.com/nature/articles?sort=PubDate&year=2020&page={i + 1}'
+    page_url = f'https://www.nature.com/nature/articles?sort=PubDate&page={i + 1}'
     r = requests.get(page_url)
     soup = BeautifulSoup(r.content, 'html.parser')
     page_urls = []
